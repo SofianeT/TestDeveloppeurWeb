@@ -1,4 +1,4 @@
-"use client"; // Indique que ce fichier est exécuté côté client
+"use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import React, { useState } from "react";
@@ -11,7 +11,7 @@ export default function RootLayout({
   const [queryClient] = useState(() => new QueryClient());
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body>
         <QueryClientProvider client={queryClient}>
           {children}

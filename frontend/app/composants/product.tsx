@@ -1,15 +1,15 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+import { Product } from "../types/product";
 import axios from "axios";
+import { useState } from "react";
 
 interface ProductFormProps {
-  product?: any;
+  product?: Product;
   onSuccess: () => void;
 }
 
 export default function ProductForm({ product, onSuccess }: ProductFormProps) {
   const [name, setName] = useState(() => product?.name || "");
-  const [price, setPrice] = useState(() => product?.price || "");
+  const [price, setPrice] = useState(() => product?.price?.toString() || "");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,9 +17,9 @@ export default function ProductForm({ product, onSuccess }: ProductFormProps) {
     const payload = { name, price: parseFloat(price) };
 
     if (product) {
-      await axios.put(`http://localhost:3000/products/${product.id}`, payload);
+      await axios.put(`http://localhost:3001/products/${product.id}`, payload);
     } else {
-      await axios.post("http://localhost:3000/products", payload);
+      await axios.post("http://localhost:3001/products", payload);
     }
 
     onSuccess();
